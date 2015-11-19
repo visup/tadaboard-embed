@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <title>Tadaboard Embed library</title>
+    <script type="text/javascript" src="dist/tadaboard-embed.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        new Tadaboard($('#dashboard')[0], 'yourId');
+      });
+    </script>
+  </head>
+  <body>
+    <div id="dashboard"></div>
+  </body>
+</html>
