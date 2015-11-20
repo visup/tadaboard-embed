@@ -27,6 +27,19 @@ class Tadaboard {
       }
     }, false);
   }
+
+  static runParser() {
+    var embeds = document.getElementsByClassName('tadaboard-embed');
+    for (var i = 0; i < embeds.length; i++) {
+      if (embeds[i].children.length > 0) { break; }
+      new Tadaboard(embeds[i], embeds[i].dataset.id);
+    }
+  }
+}
+
+if (window.TadaboardAutoload) {
+  window.TadaboardAutoload = undefined;
+  Tadaboard.runParser();
 }
 
 export default Tadaboard;

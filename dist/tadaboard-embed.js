@@ -44,10 +44,26 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           }
         }, false);
       }
+    }], [{
+      key: 'runParser',
+      value: function runParser() {
+        var embeds = document.getElementsByClassName('tadaboard-embed');
+        for (var i = 0; i < embeds.length; i++) {
+          if (embeds[i].children.length > 0) {
+            break;
+          }
+          new Tadaboard(embeds[i], embeds[i].dataset.id);
+        }
+      }
     }]);
 
     return Tadaboard;
   })();
+
+  if (window.TadaboardAutoload) {
+    window.TadaboardAutoload = undefined;
+    Tadaboard.runParser();
+  }
 
   var tadaboard_embed = Tadaboard;
 

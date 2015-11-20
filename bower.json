@@ -1,0 +1,27 @@
+{
+  "name": "tadaboard-embed",
+  "description": "Tadaboard embed library",
+  "main": "dist/tadaboard-embed.js",
+  "authors": [
+    "Alessandro Tagliapietra <tagliapietra.alessandro@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "tadaboard",
+    "dashboard",
+    "embed"
+  ],
+  "homepage": "https://github.com/visup/tadaboard-embed",
+  "moduleType": [
+    "amd",
+    "es6",
+    "globals"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
