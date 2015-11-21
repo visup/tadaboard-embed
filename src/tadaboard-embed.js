@@ -19,25 +19,35 @@ class Tadaboard {
     this.iframe.setAttribute('src', (this.options.customDomain || 'https://www.tadaboard.com') + '/e/' + this.tadaboardId);
     this.iframe.setAttribute('frameborder', '0');
     this.iframe.setAttribute('scrolling', 'no');
-    this.iframe.style.width = '100%';
     this.containerElement.appendChild(this.iframe);
-    window.addEventListener('message', (event) => {
-      if (event.data.type == 'tadaboardSize') {
-        this.iframe.style.height = event.data.height;
-      }
-    }, false);
+    if (this.options.width && this.options.height) {
+      this.iframe.style.width = this.options.width + 'px';
+      this.iframe.style.height = this.options.height + 'px';
+    } else {
+      this.iframe.style.width = '100%';
+      window.addEventListener('message', (event) => {
+        if (event.data.type == 'tadaboardSize') {
+          this.iframe.style.height = event.data.height;
+        }
+      }, false);
+    }
   }
 
   static runParser() {
     var embeds = document.getElementsByClassName('tadaboard-embed');
     for (var i = 0; i < embeds.length; i++) {
-      if (embeds[i].children.length > 0) { break; }
-      new Tadaboard(embeds[i], embeds[i].dataset.id);
+      var embedElement = embeds[i];
+      if (embedElement.children.length > 0) { break; }
+      if (embedElement.dataset.width && embedElement.dataset.height) {
+        new Tadaboard(embedElement, embedElement.dataset.id, {width: embedElement.dataset.width, height: embedElement.dataset.height});
+      } else {
+        new Tadaboard(embedElement, embedElement.dataset.id);
+      }
     }
   }
 }
 
-if (window.TadaboardAutoload) {
+if (typeof window !== 'undefined' && window.TadaboardAutoload) {
   window.TadaboardAutoload = undefined;
   Tadaboard.runParser();
 }
