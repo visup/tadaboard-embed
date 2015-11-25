@@ -27,7 +27,7 @@ class Tadaboard {
       this.iframe.style.width = '100%';
       window.addEventListener('message', (event) => {
         if (event.data.type == 'tadaboardSize') {
-          this.iframe.style.height = event.data.height;
+          this.iframe.style.height = event.data.height + 'px';
         }
       }, false);
     }

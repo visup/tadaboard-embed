@@ -36,23 +36,33 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.iframe.setAttribute('src', (this.options.customDomain || 'https://www.tadaboard.com') + '/e/' + this.tadaboardId);
         this.iframe.setAttribute('frameborder', '0');
         this.iframe.setAttribute('scrolling', 'no');
-        this.iframe.style.width = '100%';
         this.containerElement.appendChild(this.iframe);
-        window.addEventListener('message', function (event) {
-          if (event.data.type == 'tadaboardSize') {
-            _this.iframe.style.height = event.data.height;
-          }
-        }, false);
+        if (this.options.width && this.options.height) {
+          this.iframe.style.width = this.options.width + 'px';
+          this.iframe.style.height = this.options.height + 'px';
+        } else {
+          this.iframe.style.width = '100%';
+          window.addEventListener('message', function (event) {
+            if (event.data.type == 'tadaboardSize') {
+              _this.iframe.style.height = event.data.height + 'px';
+            }
+          }, false);
+        }
       }
     }], [{
       key: 'runParser',
       value: function runParser() {
         var embeds = document.getElementsByClassName('tadaboard-embed');
         for (var i = 0; i < embeds.length; i++) {
-          if (embeds[i].children.length > 0) {
+          var embedElement = embeds[i];
+          if (embedElement.children.length > 0) {
             break;
           }
-          new Tadaboard(embeds[i], embeds[i].dataset.id);
+          if (embedElement.dataset.width && embedElement.dataset.height) {
+            new Tadaboard(embedElement, embedElement.dataset.id, { width: embedElement.dataset.width, height: embedElement.dataset.height });
+          } else {
+            new Tadaboard(embedElement, embedElement.dataset.id);
+          }
         }
       }
     }]);
@@ -60,7 +70,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     return Tadaboard;
   })();
 
-  if (window.TadaboardAutoload) {
+  if (typeof window !== 'undefined' && window.TadaboardAutoload) {
     window.TadaboardAutoload = undefined;
     Tadaboard.runParser();
   }
