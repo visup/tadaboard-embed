@@ -46,6 +46,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             if (event.data.type == 'tadaboardSize') {
               _this.iframe.style.height = event.data.height + 'px';
             }
+            if (_this.options.showTitle == '0') {
+              _this.iframe.contentWindow.postMessage({ showTitle: false }, '*');
+            }
           }, false);
         }
       }
@@ -59,7 +62,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             break;
           }
           if (embedElement.dataset.width && embedElement.dataset.height) {
-            new Tadaboard(embedElement, embedElement.dataset.id, { width: embedElement.dataset.width, height: embedElement.dataset.height });
+            new Tadaboard(embedElement, embedElement.dataset.id, { width: embedElement.dataset.width, height: embedElement.dataset.height, showTitle: embedElement.dataset.title });
           } else {
             new Tadaboard(embedElement, embedElement.dataset.id);
           }
