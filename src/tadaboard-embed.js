@@ -29,6 +29,9 @@ class Tadaboard {
         if (event.data.type == 'tadaboardSize') {
           this.iframe.style.height = event.data.height + 'px';
         }
+        if (this.options.showTitle == '0') {
+          this.iframe.contentWindow.postMessage({ showTitle: false }, '*')
+        }
       }, false);
     }
   }
@@ -39,7 +42,7 @@ class Tadaboard {
       var embedElement = embeds[i];
       if (embedElement.children.length > 0) { break; }
       if (embedElement.dataset.width && embedElement.dataset.height) {
-        new Tadaboard(embedElement, embedElement.dataset.id, {width: embedElement.dataset.width, height: embedElement.dataset.height});
+        new Tadaboard(embedElement, embedElement.dataset.id, {width: embedElement.dataset.width, height: embedElement.dataset.height, showTitle: embedElement.dataset.title });
       } else {
         new Tadaboard(embedElement, embedElement.dataset.id);
       }
