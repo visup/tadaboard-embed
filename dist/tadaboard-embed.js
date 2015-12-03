@@ -64,7 +64,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           if (embedElement.dataset.width && embedElement.dataset.height) {
             new Tadaboard(embedElement, embedElement.dataset.id, { width: embedElement.dataset.width, height: embedElement.dataset.height, showTitle: embedElement.dataset.title });
           } else {
-            new Tadaboard(embedElement, embedElement.dataset.id);
+            new Tadaboard(embedElement, embedElement.dataset.id, { showTitle: embedElement.dataset.title });
           }
         }
       }
